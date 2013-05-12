@@ -377,12 +377,12 @@ public class SoftkeyModule : MonoBehaviour {
 			if(Main.ProgMDI)//内容--MDI模式下，程序界面，第一个按钮的功能，姓名--刘旋，时间--2013-4-22
 			{
 				Main.ProgMDIFlip=1;
-				MDIEdit_Script.CodeEdit();
+				//MDIEdit_Script.CodeEdit();
 				//将光标的位置索引初始化
-				Main.ProgEDITCusorH=0;
-				Main.ProgEDITCusorV=0;
-				Main.SelectStart = 0;
-				Main.SelectEnd = 0;
+				//Main.ProgEDITCusorH=0;
+				//Main.ProgEDITCusorV=0;
+				//Main.SelectStart = 0;
+				//Main.SelectEnd = 0;
 			}
 			if(Main.ProgDNC)//内容--DNC模式下，程序界面，第一个按钮的功能，姓名--刘旋，时间--2013-4-22
 			{
@@ -547,6 +547,7 @@ public class SoftkeyModule : MonoBehaviour {
 			//姓名--刘旋，时间--2013-3-25
 			if (Main.ProgAUTO)
 			{
+				Debug.Log(Main.ProgAUTOFlip);
 				if(Main.ProgAUTOFlip==0)//“程序”页，按下“检测”按钮，转到“绝对”页
 				{
 					Main.ProgAUTOFlip=2;
@@ -568,13 +569,13 @@ public class SoftkeyModule : MonoBehaviour {
 			
 			if(Main.ProgMDI)
 			{
-				Main.ProgMDIFlip=1;
-				MDIEdit_Script.CodeEdit();
+				Main.ProgMDIFlip=0;
+				//MDIEdit_Script.CodeEdit();
 				//将光标的位置索引初始化
-				Main.ProgEDITCusorH=0;
-				Main.ProgEDITCusorV=0;
-				Main.SelectStart = 0;
-				Main.SelectEnd = 0;
+				//Main.ProgEDITCusorH=0;
+				//Main.ProgEDITCusorV=0;
+				//Main.SelectStart = 0;
+				//Main.SelectEnd = 0;
 			}	
 		}//1 level
 		

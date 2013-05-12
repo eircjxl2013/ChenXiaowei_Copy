@@ -38,6 +38,12 @@ public class ProgramModule : MonoBehaviour {
 		Main.AUTOSeparatePos=new int[100000];
 		Main.CodeForAll.Add(";");
 		Main.CodeForMDI.Add(";");
+		Main.ProgEDITCusorH=0;
+		Main.ProgEDITCusorV=0;
+		Main.SelectStart = 0;
+		Main.SelectEnd = 0;
+		Main.StartRow=0;
+		Main.EndRow=9;
 	}
 	
 	void OnGUI()
@@ -374,6 +380,7 @@ public class ProgramModule : MonoBehaviour {
 		//内容--修改AUTO模式下，程序界面的功能
 		//姓名--刘旋，时间--2013-3-25
 		//Debug.Log(Main.ProgAUTOFlip);
+		/*
 		if(!Main.autoDisplayNormal)
 		{
 			Main.ProgAUTOFlip=2;
@@ -381,12 +388,14 @@ public class ProgramModule : MonoBehaviour {
 		{
 			Main.ProgAUTOFlip=0;
 		}
-		
+		*/
 		
 		if (Main.ProgAUTOFlip==0)
 		{
 			ProgramInterface();
 			GUI.Label(new Rect(175f/1000f*Main.width,420f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"检测", Main.sty_BottomChooseMenu);
+			Main.AutoDisplayFindRows(Main.autoSelecedProgRow,true);
+			AutoDisplyProgram(95f);
 		}
 		else if (Main.ProgAUTOFlip==1)
 		{
@@ -417,6 +426,8 @@ public class ProgramModule : MonoBehaviour {
 			GUI.Label(new Rect(262f/1000f*Main.width,420f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"N检索", Main.sty_BottomChooseMenu);
 			GUI.Label(new Rect(451f/1000f*Main.width,420f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"返回", Main.sty_BottomChooseMenu);
 			GUI.Label(new Rect(523f/1000f*Main.width,420f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"+", Main.sty_MostWords);
+			Main.AutoDisplayFindRows(Main.autoSelecedProgRow,true);
+			AutoDisplyProgram(95f);
 		}
 		else if (Main.ProgAUTOFlip==2)
 		{
@@ -471,7 +482,9 @@ public class ProgramModule : MonoBehaviour {
 		    GUI.Label(new Rect(85f/1000f*Main.width,421f/1000f*Main.height,70f/1000f*Main.width,25f/1000f*Main.height),"绝对", Main.sty_BottomChooseMenu);//内容--按下时高度值加1，姓名--刘旋，时间--2013-4-9
 		    GUI.Label(new Rect(176f/1000f*Main.width,420f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"相对", Main.sty_BottomChooseMenu);
 		    GUI.Label(new Rect(423f/1000f*Main.width,420f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"（操 作）", Main.sty_BottomChooseMenu);
-
+			Main.AutoDisplayFindRows(Main.autoSelecedProgRow,false);
+			AutoDisplyProgram(58f);
+		
 		}
 		else if (Main.ProgAUTOFlip==3)
 		{
@@ -531,6 +544,8 @@ public class ProgramModule : MonoBehaviour {
 		    GUI.Label(new Rect(85f/1000f*Main.width,420f/1000f*Main.height,70f/1000f*Main.width,25f/1000f*Main.height),"绝对", Main.sty_BottomChooseMenu);//内容--按下时高度值加1，姓名--刘旋，时间--2013-4-9
 		    GUI.Label(new Rect(176f/1000f*Main.width,421f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"相对", Main.sty_BottomChooseMenu);
 		    GUI.Label(new Rect(423f/1000f*Main.width,420f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"（操 作）", Main.sty_BottomChooseMenu);
+			Main.AutoDisplayFindRows(Main.autoSelecedProgRow,false);
+			AutoDisplyProgram(58f);
 		}
 		else if(Main.ProgAUTOFlip==5)
 		{
@@ -538,10 +553,12 @@ public class ProgramModule : MonoBehaviour {
 			GUI.Label(new Rect(175f/1000f*Main.width,420f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"检测", Main.sty_BottomChooseMenu);
 			GUI.Label(new Rect(523f/1000f*Main.width,420f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"+", Main.sty_MostWords);
 		}
+		/*
 		float pos_y=0;
 		if(!Main.autoDisplayNormal)pos_y=58f;
 		else pos_y=95f;
 		AutoDisplyProgram(pos_y);
+		*/
 	}
 	
 	//显示Handle、Jog、Ref模式下的程序界面
@@ -569,13 +586,16 @@ public class ProgramModule : MonoBehaviour {
 			ModeEditInterface();
 			GUI.Label(new Rect(40f/1000f*Main.width,30f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"程序(MDI)", Main.sty_BottomAST);
 			GUI.Label(new Rect(175f/1000f*Main.width,421f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"MDI", Main.sty_BottomChooseMenu);
+			float pos_y = 75f;
+			DisplayProgram(pos_y);
+			//Debug.Log("teststts");
 		}
 		if(Main.ProgMDIFlip==1)
 		{
 			ProgramInterface();
 			GUI.Label(new Rect(175f/1000f*Main.width,420f/1000f*Main.height,500f/1000f*Main.width,300f/1000f*Main.height),"MDI", Main.sty_BottomChooseMenu);
-			float pos_y = 95f;
-			DisplayProgram(pos_y);
+			
+			
 		}
 		if(Main.ProgMDIFlip==2)
 		{
@@ -804,7 +824,7 @@ public class ProgramModule : MonoBehaviour {
 	
 	void DisplayProgram(float pos_y)
     {
-        
+        //Debug.Log(Main.StartRow+"pp"+Main.EndRow);
 		const float blank_length = 10f;
 		//程序最后如果不是;则自动补;
 		if(Main.CodeForAll.Count == 0)
